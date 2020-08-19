@@ -1,3 +1,5 @@
+//Explanation Comments yet to be added
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -38,7 +40,7 @@ int printdist(int s,int l, struct edge *inarr[],int N)
 				from1 = T1->from;
 				break;
 			}
-			T1 = T1->nxt;	
+			T1 = T1->nxt;
 		}
 		while(t!= NULL)
 		{
@@ -74,7 +76,7 @@ int mini(struct edge *hi)
 	h=h->next;
 	while(h!=NULL)
 	{
-		
+
 		if((h->wt) < min)
 			min = h->wt;
 			h=h->next;
@@ -113,8 +115,8 @@ int DFSvisit(int N,struct edge *inarr[],struct edge *outarr[],int parent[],int d
 
     dfscolor[i-1] = 1;
  //   printf("color of %d to gray\n",i);
- 
-  	
+
+
 	struct edge *h;
 	h = outarr[i-1];
     while(h != NULL)
@@ -129,7 +131,7 @@ int DFSvisit(int N,struct edge *inarr[],struct edge *outarr[],int parent[],int d
         }
         else if(dfscolor[h->label - 1]==1 && Gcycle != 1)
         {
-       // 	printf("entered else if\n");            
+       // 	printf("entered else if\n");
         	cyclefound = 1;
         	struct edge *x = h;
       //  	for(int k=0;k<N;k++)
@@ -146,7 +148,7 @@ int DFSvisit(int N,struct edge *inarr[],struct edge *outarr[],int parent[],int d
 		   	if(headt == NULL)
 		   		*cyclenodes = tempt;
 //		   	printf("inserted label %d wt %d in cycle\n",tempt->label,tempt->wt);
-        	
+
         	while(ii != h->label)
         	{
   //      		printf("entered whileeee\n");
@@ -156,7 +158,7 @@ int DFSvisit(int N,struct edge *inarr[],struct edge *outarr[],int parent[],int d
         		{
         			temphead = temphead->next;
         		}
-        		int currwt = temphead->wt; 
+        		int currwt = temphead->wt;
         		sumofedges = sumofedges + currwt;
 	        	struct edge *temp;
 	        	temp = (struct edge*)malloc(sizeof(struct edge));
@@ -221,17 +223,17 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 //	printf("Edmonds called\n");
 	int minedgei;
 	struct edge *inarr2[N],*outarr2[N];
-	
+
 	for(int i=0;i<N;i++)
 	{
 		outarr2[i] = NULL;
 		inarr2[i] = NULL;
 	}
-	
+
 	for(int i=0;i<N;i++)
 	{
 		struct edge *hi = inarr[i];
-		
+
 		while(hi!=NULL)
 		{
 			struct edge *temp;
@@ -251,7 +253,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 			}
 			hi = hi->next;
 		}
-		
+
 		struct edge *ho = outarr[i];
 		while(ho!=NULL)
 		{
@@ -272,7 +274,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 			}
 			ho = ho->next;
 		}
-		
+
 	}
 	//duplicate graph with same data created
 //		printf("CHECKING DUPLICATE GRAPH\n");
@@ -293,16 +295,16 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 	//		{
 //				printf("label%d wt%d\n",ho->label,ho->wt);
 	//			ho = ho->next;
-	//		}		
+	//		}
 	//	}
-	//	
+	//
 	for(int i=0;i<N;i++)
 	{
 		struct edge *hi = inarr2[i];
 		struct edge *ho;
 		if(hi != NULL)
 			minedgei = mini(hi);
-		
+
 		while(hi!=NULL)
 		{
 			hi->wt = hi->wt - minedgei;
@@ -321,7 +323,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 				ho = ho->next;
 			}
 			if(ho->label == i+1)
-			{	
+			{
 	//			printf("in outarr, changing label %d wt from %d to %d\n",ho->label,ho->wt,ho->wt - minedgei);
 				ho->wt = ho->wt - minedgei;
 			}
@@ -346,10 +348,10 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 //			{
 //				printf("label%d wt%d\n",ho->label,ho->wt);
 //				ho = ho->next;
-//			}		
+//			}
 //		}
 	// Duplicate graph with relaxed edges is ready
-	
+
 
 	struct edge *cyclenodes = NULL;
     int dfscolor[N];
@@ -360,7 +362,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 	parent[i] = -1;
     }
 //	printf("calling dfs\n");
-	
+
 	Gcycle = 0;
 	int garbage = DFSvisit(N,inarr2,outarr2,parent,dfscolor,s,&cyclenodes);
 //	printf("AFTER DFS GLOBALCYCLE IS %d\n",Gcycle);
@@ -372,7 +374,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 //		printf("label %d weight %d\n",tempo->label,tempo->wt);
 //		tempo = tempo->next;
 //	}
-        	
+
 	if(Gcycle == 1)
 	{
 		struct edge *inarr3[N+noofsupnodes], *outarr3[N+noofsupnodes];
@@ -384,7 +386,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 		int aaa = 0;
 		struct edge *tmpc = cyclenodes;
 		while(tmpc != NULL)
-		{	
+		{
 			aaa = 0;
 			struct edge *tt = inarr2[tmpc->label - 1];
 			while(tt != NULL)
@@ -421,10 +423,10 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 				}
 				tt = tt->next;
 			}
-			
+
 			tmpc = tmpc->next;
 		}
-			
+
 		aaa = 0;
 		tmpc = cyclenodes;
 		while(tmpc != NULL)
@@ -466,10 +468,10 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 				}
 				tt = tt->next;
 			}
-			
+
 			tmpc = tmpc->next;
 		}
-		
+
 		int skip = 0;
 		for(int i=0;i<(N+noofsupnodes-1);i++)
 		{
@@ -486,7 +488,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 					tmpcc = tmpcc->next;
 			}
 			if(skip == 1)
-				continue;	
+				continue;
 		//	outarr3;
 			struct edge *prevtemp = outarr2[i];
 			int ce = 0;
@@ -505,7 +507,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 						T1->label = N + noofsupnodes;
 						T1->wt = prevtemp->wt;
 						T1->next = NULL;
-						
+
 						struct edge *T2 = outarr3[i];
 						if(T2 == NULL)
 							outarr3[i] = T1;
@@ -520,18 +522,18 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 						prevtemp = prevtemp->next;
 						break;
 					}
-					tmpcc = tmpcc->next;	
+					tmpcc = tmpcc->next;
 				}
 				if(ce == 1)
 					continue;
 				//checked if edge to cycle
-				
+
 				struct edge *T1;
 				T1 = (struct edge*)malloc(sizeof(struct edge));
 				T1->label = prevtemp->label;
 				T1->wt = prevtemp->wt;
 				T1->next = NULL;
-				
+
 				struct edge *T2 = outarr3[i];
 				if(T2 == NULL)
 					outarr3[i] = T1;
@@ -545,7 +547,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 				}
 				prevtemp = prevtemp->next;
 			}
-			
+
 			//inarr3
 			ce = 0;
 			prevtemp = inarr2[i];
@@ -564,7 +566,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 						T1->label = N + noofsupnodes;
 						T1->wt = prevtemp->wt;
 						T1->next = NULL;
-						
+
 						struct edge *T2 = inarr3[i];
 						if(T2 == NULL)
 							inarr3[i] = T1;
@@ -579,18 +581,18 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 						prevtemp = prevtemp->next;
 						break;
 					}
-					tmpcc = tmpcc->next;	
+					tmpcc = tmpcc->next;
 				}
 				if(ce == 1)
 					continue;
 				//checked if edge to cycle
-				
+
 				struct edge *T1;
 				T1 = (struct edge*)malloc(sizeof(struct edge));
 				T1->label = prevtemp->label;
 				T1->wt = prevtemp->wt;
 				T1->next = NULL;
-				
+
 				struct edge *T2 = inarr3[i];
 				if(T2 == NULL)
 					inarr3[i] = T1;
@@ -604,8 +606,8 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 				}
 				prevtemp = prevtemp->next;
 			}
-			
-			
+
+
 		}
 		//print checking
 //		printf("PRINTING 3rd GRAPH before recurring Edmonds\n");
@@ -626,9 +628,9 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 //			{
 //				printf("label%d wt%d\n",ho->label,ho->wt);
 //				ho = ho->next;
-//			}		
+//			}
 		//}
-		
+
 		Edmonds(N+noofsupnodes,inarr3,outarr3,s,call);
 		int minwt;
 		for(int i=0;i<N+noofsupnodes;i++)
@@ -637,12 +639,12 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 			struct edge *ho;
 			if(hi != NULL)
 				minedgei = mini(hi);
-		
+
 			while(hi!=NULL)
 			{
 				if(i == N + noofsupnodes - 1 && hi->wt == minedgei)
 					minwt = hi->wt;
-					
+
 				hi->wt = hi->wt - minedgei;
 				ho = outarr3[(hi->label)-1];
 				while(ho->label != i+1)
@@ -708,7 +710,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 				break;
 			}
 		}
-		
+
 		struct edge *T = outarr2[edgefrom - 1];
 		while(T!=NULL)
 		{
@@ -720,7 +722,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 					edgeto = T->label;
 					printf("edgeto %d\n",edgeto);
 					break;
-				}	
+				}
 				TT = TT->next;
 			}
 			T = T->next;
@@ -741,10 +743,10 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 			}
 			AT = AT->nxt;
 		}*/
-		
+
 		struct edge *T1 = inarr3[N+noofsupnodes-call];
 		int edgefrom,edgeto,removfrom;
-		
+
 		while(T1 != NULL)
 		{
 			if(T1->wt == 0)
@@ -754,7 +756,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 			}
 			T1=T1->next;
 		}
-		
+
 		struct edge *T2 = cyclenodes;
 		struct edge *T3 = outarr2[edgefrom - 1];
 	//	printf("outarr2\n");
@@ -771,7 +773,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 			int mili = 0;
 			T2 = cyclenodes;
 			while(T2 != NULL)
-			{	
+			{
 		//		printf("T2 label %d T3 label %d T3wt %d minwt %d\n",T2->label,T3->label,T3->wt,minwt);
 				if(T2->label == T3->label && T3->wt == minwt)
 				{
@@ -784,14 +786,14 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 			}
 			if(mili == 1)
 				break;
-				
+
 			T3 = T3->next;
 		}
 //		printf("edgeto %d\n",edgeto);
-		
+
 		struct edge *T6 = inarr2[edgeto - 1];
 		struct edge *T7 = cyclenodes;
-		
+
 		while(T6 != NULL)
 		{
 			int done = 0;
@@ -804,7 +806,7 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 	//				printf("Edge to be removed from ans is from %d to %d",removfrom,edgeto);
 					done = 1;
 					break;
-				
+
 				}
 				T7 = T7->next;
 			}
@@ -812,10 +814,10 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 				break;
 			T6 = T6->next;
 		}
-		
+
 		struct arboro *T4 = ans;
 		while(T4 != NULL)
-		{	
+		{
 			int done = 0;
 			if(T4->from == removfrom && T4->to == edgeto)
 			{
@@ -840,19 +842,19 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 			}
 			*/
 			T4 = T4->nxt;
-			
+
 		}
-		
-		
-		
+
+
+
 //		struct arboro *tmm = ans;
 	//	while(tmm != NULL)
 	//	{
 	//		printf("from %d to %d\n",tmm->from,tmm->to);
 	//		tmm = tmm->nxt;
 //		}
-		
-		
+
+
 	}
 
 	else if(Gcycle == 0)
@@ -861,9 +863,9 @@ void Edmonds(int N,struct edge *inarr[N],struct edge *outarr[N],int s,int call)
 	}
 
 
-	
+
 }
-	
+
 
 void main()
 {
@@ -891,7 +893,7 @@ void main()
 			struct edge *hi,*ho;
 			hi = inarr[v-1];
 			ho = outarr[u-1];
-			
+
 	//		printf("YAHA AYA U V W %d\n",weight);
 			struct edge *temp;
 			temp = (struct edge*)malloc(sizeof(struct edge));
@@ -899,7 +901,7 @@ void main()
 			temp->label = u;
 			temp->next = NULL;
 
-	
+
 			if(hi==NULL)
 				inarr[v-1] = temp;
 			else
@@ -908,14 +910,14 @@ void main()
 					hi = hi->next;
 				hi->next = temp;
 			}
-			
-			
+
+
 			struct edge *tempo;
 			tempo = (struct edge*)malloc(sizeof(struct edge));
 			tempo->wt = weight;
 			tempo->label = v;
 			tempo->next = NULL;
-			
+
 			if(ho==NULL)
 			{
 				outarr[u-1]=tempo;
@@ -927,9 +929,9 @@ void main()
 				ho->next = tempo;
 			}
 		}
-		
+
 		Edmonds(N,inarr,outarr,s,call);
-		
+
 
 		int sum = 0;
 		for(int i=1;i<N;i++)
@@ -950,7 +952,7 @@ void main()
 		for(int i=0;i<N;i++)
 		{
 			printf("%d ",printdist(s,i+1,inarr,N));
-		}	
+		}
 		//printing parent
 //		printf("Priniting parent\n");
 		printf("# 0 ");
@@ -961,8 +963,8 @@ void main()
 			while(tp != NULL)
 			{
 				if(tp->to == i+1 && (tp->from) <= N)
-					printf("%d ",tp->from);	
-				
+					printf("%d ",tp->from);
+
 				tp = tp->nxt;
 			}
 
@@ -988,9 +990,9 @@ void main()
 			{
 				printf("label%d wt%d\n",ho->label,ho->wt);
 				ho = ho->next;
-			}		
+			}
 		}
-	*/	
+	*/
 	}
 }
 
@@ -1030,7 +1032,7 @@ void main()
 
 ============OUTPUT ===========
 14 0 10 2 6 8 10
-47 0 5 8 20 34 24 17 21 
+47 0 5 8 20 34 24 17 21
 
 
 1
@@ -1041,13 +1043,8 @@ void main()
 5 3 4
 3 5 0
 3 4 0
-4 2 0 
+4 2 0
 2 3 1
 3 2 7
 
 */
-
-
-
-
-
